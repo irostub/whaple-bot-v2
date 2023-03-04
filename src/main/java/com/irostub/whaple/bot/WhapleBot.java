@@ -1,6 +1,8 @@
 package com.irostub.whaple.bot;
 
-import com.irostub.whaple.bot.account.*;
+import com.irostub.whaple.bot.account.Account;
+import com.irostub.whaple.bot.account.AccountService;
+import com.irostub.whaple.bot.account.ChatGroupUserService;
 import com.irostub.whaple.bot.config.AccountHoldInstance;
 import com.irostub.whaple.bot.config.AccountHolder;
 import com.irostub.whaple.bot.config.AppProperties;
@@ -65,7 +67,7 @@ public class WhapleBot extends TelegramLongPollingBot {
             chatGroupUserService.chatGroupUserSaveIfNotExists(message.getFrom(), message.getChat());
         }
         if (message.isUserMessage()) {
-            accountService.accountSaveIfNotExists(message.getFrom());
+            accountService.accountSaveWithChatId(message.getChat().getId(), message.getFrom());
         }
         holdAccountInfo(message.getFrom().getId());
     }

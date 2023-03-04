@@ -1,5 +1,6 @@
 package com.irostub.whaple.bot;
 
+import com.irostub.whaple.bot.checkio.CheckIoCommand;
 import com.irostub.whaple.bot.fridaylunch.FridayLunchCommand;
 import com.irostub.whaple.bot.hangang.HangangCommand;
 import com.irostub.whaple.bot.ping.PingCommand;
@@ -18,6 +19,7 @@ public class CommandHolderConfig {
     private final HelpCommand helpCommand;
     private final RestaurantCommand restaurantCommand;
     private final FridayLunchCommand fridayLunchCommand;
+    private final CheckIoCommand checkIoCommand;
 
     @Bean
     public CommandHolder commandHolder(){
@@ -28,6 +30,7 @@ public class CommandHolderConfig {
         commandHolder.register(helpCommand);
         commandHolder.register(restaurantCommand);
         commandHolder.register(fridayLunchCommand);
+        commandHolder.register(checkIoCommand);
         return commandHolder;
     }
 }

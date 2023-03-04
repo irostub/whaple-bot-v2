@@ -2,11 +2,7 @@ package com.irostub.whaple.bot.fridaylunch;
 
 import com.irostub.whaple.bot.DefaultBotCommand;
 import com.irostub.whaple.bot.IManCommand;
-import com.irostub.whaple.bot.account.ChatGroup;
-import com.irostub.whaple.bot.account.ChatGroupRepository;
-import com.irostub.whaple.bot.exception.NotFoundException;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -27,7 +23,7 @@ public class FridayLunchCommand extends DefaultBotCommand implements IManCommand
     @Override
     public String getExtendedDescription() {
         return
-                "점심 예약이 켜진 경우, 목요일 10시에 금요일 점심 인원 수를 확인하는 메세지가 예약을 켠 채팅방에 전송됩니다.\n" +
+                "점심 예약이 켜진 경우, 목요일 9시에 금요일 점심 인원 수를 확인하는 메세지가 예약을 켠 그룹 채팅방에 전송됩니다. 예약 마감은 11시 30분입니다.\n"+
                 "점심 예약을 끄려면 {i}점심예약 을 한번 더 실행하세요.";
     }
 

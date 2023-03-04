@@ -22,7 +22,7 @@ public class FridayLunchScheduler {
     private final FridayLunchRepository fridayLunchRepository;
     private final FridaySendMessageQueueRepository queueRepository;
     private final AbsSender absSender;
-    @Scheduled(cron = "0 0 10 ? * 4")
+    @Scheduled(cron = "0 0 9 ? * 4", zone="Asia/Seoul")
 //    @Scheduled(cron = "10 * * * * *")
     @Transactional
     public void sendCheckMessage(){
@@ -48,9 +48,26 @@ public class FridayLunchScheduler {
     }
 
     @Transactional
-    @Scheduled(cron = "0 0 11 ? * 4")
+    @Scheduled(cron = "0 30 11 ? * 4", zone="Asia/Seoul")
 //    @Scheduled(cron = "30 * * * * *")
     public void sendTotalMessage() {
+        //기존 예약 버튼 메세지 제거
+        List<FridaySendMessageQueue> all = queueRepository.findAll();
+        for (FridaySendMessageQueue fridaySendMessageQueue : all) {
+            DeleteMessage send = DeleteMessage.builder()
+                    .messageId(fridaySendMessageQueue.getMessageId())
+                    .chatId(fridaySendMessageQueue.getChatId())
+                    .build();
+            try {
+                absSender.execute(send);
+            } catch (TelegramApiException e) {
+                throw new RuntimeException(e);
+            } finally {
+                queueRepository.delete(fridaySendMessageQueue);
+            }
+        }
+
+        //마감 메세지 전송
         List<FridayLunch> fridayLunches = fridayLunchRepository.findByAlert(true);
         for (FridayLunch fridayLunch : fridayLunches) {
             List<FridayLunchAccount> fridayLunchAccounts = fridayLunch.getFridayLunchAccounts();
@@ -68,25 +85,6 @@ public class FridayLunchScheduler {
                 absSender.execute(send);
             } catch (TelegramApiException e) {
                 throw new RuntimeException(e);
-            }
-        }
-    }
-
-//    @Scheduled(cron = "50 * * * * *")
-    @Scheduled(cron = "0 0 12 ? * 4")
-    public void deleteButtonInMessage(){
-        List<FridaySendMessageQueue> all = queueRepository.findAll();
-        for (FridaySendMessageQueue fridaySendMessageQueue : all) {
-            DeleteMessage send = DeleteMessage.builder()
-                    .messageId(fridaySendMessageQueue.getMessageId())
-                    .chatId(fridaySendMessageQueue.getChatId())
-                    .build();
-            try {
-                absSender.execute(send);
-            } catch (TelegramApiException e) {
-                throw new RuntimeException(e);
-            } finally {
-                queueRepository.delete(fridaySendMessageQueue);
             }
         }
     }

@@ -4,6 +4,7 @@ import com.irostub.whaple.bot.account.Account;
 import com.irostub.whaple.bot.account.AccountRepository;
 import com.irostub.whaple.bot.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
@@ -35,17 +36,19 @@ public class FridayCallbackAction {
 
         if (fridayLunchAccounts.size() > 0) {
             FridayLunchAccount fridayLunchAccount = fridayLunchAccounts.get(0);
+            //해당 채널에서 이미 점심예약을 한 경우
             if(chatId.equals(fridayLunchAccount.getFridayLunch().getChatGroup().getChatGroupId())){
                 fridayLunchAccountRepository.delete(fridayLunchAccount);
 
                 FridayLunch fridayLunch = fridayLunchRepository.findByChatGroupId(chatId).orElseThrow(NotFoundException::new);
                 fridayLunch.getFridayLunchAccounts().remove(fridayLunchAccount);
                 Message message = update.getCallbackQuery().getMessage();
-
+                String enterUsernames = getEnterUsername(fridayLunch);
                 EditMessageText send = EditMessageText.builder()
                         .messageId(message.getMessageId())
                         .chatId(message.getChatId())
-                        .text("금요일 점심 신청 인원 수 : " + fridayLunch.getFridayLunchAccounts().size())
+                        .text("금요일 점심 신청 인원 수 : " + fridayLunch.getFridayLunchAccounts().size()+"\n"+
+                                (StringUtils.isNotEmpty(enterUsernames)?"신청자 : "+enterUsernames:""))
                         .replyMarkup(message.getReplyMarkup())
                         .build();
                 try {
@@ -55,6 +58,8 @@ public class FridayCallbackAction {
                 }
                 return;
             }
+
+            //다른 채널에서 이미 점심예약을 한 경우
             AnswerCallbackQuery answer = AnswerCallbackQuery.builder()
                     .callbackQueryId(callbackId)
                     .text(fridayLunchAccount.getFridayLunch().getChatGroup().getChatGroupName() + "에서 이미 밥이 나오는 버튼을 눌렀습니다.")
@@ -69,6 +74,7 @@ public class FridayCallbackAction {
         }
 
         Optional<FridayLunch> fridayLunchOptional = fridayLunchRepository.findByChatGroupId(chatId);
+        //점심예약 기능이 그룹 채팅에 켜져있지 않은 경우
         if (fridayLunchOptional.isEmpty()) {
             AnswerCallbackQuery answer = AnswerCallbackQuery.builder()
                     .callbackQueryId(callbackId)
@@ -87,17 +93,28 @@ public class FridayCallbackAction {
         fridayLunchAccountRepository.save(fridayLunchAccount);
         Message message = update.getCallbackQuery().getMessage();
 
+
+        //점심 신청
+        String enterUsernames = getEnterUsername(fridayLunch);
         EditMessageText send = EditMessageText.builder()
                 .chatId(message.getChatId())
                 .messageId(message.getMessageId())
                 .replyMarkup(message.getReplyMarkup())
-                .text("금요일 점심 신청 인원 수 : "+fridayLunch.getFridayLunchAccounts().size()+"\n"+
-                        "신청자 : "+fridayLunch.getFridayLunchAccounts().stream().map(FridayLunchAccount::getAccount).map(Account::getName).collect(Collectors.joining(", ")))
+                .text("금요일 점심 신청 인원 수 : " + fridayLunch.getFridayLunchAccounts().size() + "\n" +
+                        (StringUtils.isNotEmpty(enterUsernames) ? "신청자 : " + enterUsernames : ""))
                 .build();
         try {
             absSender.execute(send);
         } catch (TelegramApiException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static String getEnterUsername(FridayLunch fridayLunch) {
+        String enterUsernames = fridayLunch.getFridayLunchAccounts().stream()
+                .map(FridayLunchAccount::getAccount)
+                .map(Account::getName)
+                .collect(Collectors.joining(", "));
+        return enterUsernames;
     }
 }

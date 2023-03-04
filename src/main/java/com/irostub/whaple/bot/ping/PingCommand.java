@@ -1,7 +1,6 @@
 package com.irostub.whaple.bot.ping;
 
 import com.irostub.whaple.bot.DefaultBotCommand;
-import com.irostub.whaple.bot.IManCommand;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;

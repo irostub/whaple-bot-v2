@@ -17,11 +17,25 @@ public class AccountService {
         String lastName = user.getLastName();
         String userName = user.getUserName();
 
-        Account account = accountRepository.findByAccountId(userId).orElseGet(() -> Account.create(userId, firstName, lastName, userName));
+        Account account = accountRepository.findByAccountId(userId)
+                .orElseGet(() -> Account.create(userId, firstName, lastName, userName));
         return accountRepository.save(account);
     }
 
     public Account findByIdWithNull(Long userId) {
         return accountRepository.findByAccountId(userId).orElse(null);
+    }
+
+    @Transactional
+    public Account accountSaveWithChatId(Long chatId, User user) {
+        Long userId = user.getId();
+        String firstName = user.getFirstName();
+        String lastName = user.getLastName();
+        String userName = user.getUserName();
+
+        Account account = accountRepository.findByAccountId(userId)
+                .orElseGet(() -> Account.create(userId, firstName, lastName, userName, chatId));
+
+        return accountRepository.save(account);
     }
 }

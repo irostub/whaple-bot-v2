@@ -10,7 +10,8 @@ import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import static com.irostub.whaple.bot.hangang.HangangMessageDirector.*;
+import static com.irostub.whaple.bot.hangang.HangangMessageDirector.hangangMessage;
+import static com.irostub.whaple.bot.hangang.HangangMessageDirector.inspectionMessage;
 
 @Component
 public class HangangCommand extends DefaultBotCommand {

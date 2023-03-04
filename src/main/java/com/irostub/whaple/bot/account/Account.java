@@ -6,7 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +25,8 @@ public class Account extends BaseEntity {
     private String lastName;
     private String username;
     private LocalDate birthday;
+    private Boolean checkIo = false;
+    private Long userChatId;
 
     @OneToMany(mappedBy = "account")
     private List<ChatGroupUser> chatGroupUser = new ArrayList<>();
@@ -34,7 +40,22 @@ public class Account extends BaseEntity {
         return account;
     }
 
+    public static Account create(Long accountId,String firstName, String lastName, String username, Long userChatId) {
+        Account account = new Account();
+        account.accountId = accountId;
+        account.firstName = firstName;
+        account.lastName = lastName;
+        account.username = username;
+        account.userChatId = userChatId;
+        return account;
+    }
+
     public String getName(){
         return (StringUtils.isNotEmpty(lastName) ? lastName : "") + firstName;
+    }
+
+    public Boolean switchCheckIo(){
+        this.checkIo = !checkIo;
+        return checkIo;
     }
 }
