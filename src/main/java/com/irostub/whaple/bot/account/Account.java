@@ -55,6 +55,9 @@ public class Account extends BaseEntity {
     }
 
     public Boolean switchCheckIo(){
+        if (checkIo == null) {
+            checkIo = false;
+        }
         this.checkIo = !checkIo;
         return checkIo;
     }

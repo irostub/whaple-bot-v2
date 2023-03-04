@@ -19,7 +19,7 @@ import java.util.List;
 public class CheckIoScheduler {
     private final AbsSender absSender;
     private final CheckIoService checkIoService;
-    @Scheduled(cron = "* * 20 * * MON-FRI",zone="Asia/Seoul")
+    @Scheduled(cron = "0 0 20 * * MON-FRI",zone="Asia/Seoul")
     public void checkIoSchedule(){
         LocalDate now = LocalDate.now(ZoneId.of("Asia/Seoul"));
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMdd");
