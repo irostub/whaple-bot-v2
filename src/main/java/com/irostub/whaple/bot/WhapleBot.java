@@ -69,7 +69,11 @@ public class WhapleBot extends TelegramLongPollingBot {
         if (message.isUserMessage()) {
             accountService.accountSaveWithChatId(message.getChat().getId(), message.getFrom());
         }
-        holdAccountInfo(message.getFrom().getId());
+        try {
+            holdAccountInfo(message.getFrom().getId());
+        } catch (NullPointerException e) {
+            log.error("NPE, chat={}", message);
+        }
     }
 
     private boolean isSupportMessageType(Message message){

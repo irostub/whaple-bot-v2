@@ -1,6 +1,7 @@
 package com.irostub.whaple.bot;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Chat;
@@ -10,6 +11,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.Collection;
 
+@Slf4j
 @Component
 public class HelpCommand extends ManCommand {
 
@@ -34,7 +36,12 @@ public class HelpCommand extends ManCommand {
     }
 
     public static String getManText(IBotCommand command) {
-        return IManCommand.class.isInstance(command) ? getManText((IManCommand) command) : command.toString();
+        try {
+            return IManCommand.class.isInstance(command) ? getManText((IManCommand) command) : command.toString();
+        } catch (NullPointerException e) {
+            log.info("not support help command? command is {}", command);
+            return null;
+        }
     }
 
     public static String getManText(IManCommand command) {
@@ -57,6 +64,11 @@ public class HelpCommand extends ManCommand {
             if (arguments.length > 0) {
                 IBotCommand command = bot.getCommandHolder().getRegisteredCommand(arguments[0]);
                 String reply = getManText(command);
+
+                if (reply == null) {
+                    return;
+                }
+
                 try {
                     absSender.execute(SendMessage.builder().chatId(chat.getId()).text(reply).parseMode("HTML").build());
                 } catch (TelegramApiException e) {
