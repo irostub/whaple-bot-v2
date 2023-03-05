@@ -14,4 +14,6 @@ public interface IgnoreRestaurantRepository extends JpaRepository<IgnoreRestaura
 
     @EntityGraph(attributePaths = {"restaurant"}, type = EntityGraph.EntityGraphType.LOAD)
     List<IgnoreRestaurant> findAllByAccount(Account account);
+
+    List<IgnoreRestaurant> findByRestaurant(Restaurant restaurant);
 }

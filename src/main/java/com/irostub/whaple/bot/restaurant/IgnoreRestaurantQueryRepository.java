@@ -1,6 +1,5 @@
 package com.irostub.whaple.bot.restaurant;
 
-import com.irostub.whaple.bot.account.Account;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -16,13 +15,11 @@ import static com.irostub.whaple.bot.restaurant.QRestaurant.restaurant;
 public class IgnoreRestaurantQueryRepository {
     private final JPAQueryFactory query;
 
-    public List<IgnoreRestaurant> getIgnoreList(Account findAccount) {
+    public List<IgnoreRestaurant> getIgnoreList(Long accountId) {
         return query.selectFrom(ignoreRestaurant)
                 .join(ignoreRestaurant.restaurant, restaurant)
-                .fetchJoin()
                 .join(restaurant.account, account)
-                .fetchJoin()
-                .where(ignoreRestaurant.account.accountId.eq(findAccount.getAccountId()))
+                .where(ignoreRestaurant.account.accountId.eq(accountId))
                 .fetch();
     }
 }

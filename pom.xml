@@ -16,6 +16,12 @@
     <properties>
         <java.version>11</java.version>
     </properties>
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
     <profiles>
         <profile>
             <id>local</id>
@@ -38,11 +44,15 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.github.hkirk</groupId>
+            <artifactId>java-html2image</artifactId>
+            <version>0.9</version>
+        </dependency>
+        <dependency>
             <groupId>com.ibm.icu</groupId>
             <artifactId>icu4j</artifactId>
             <version>72.1</version>
         </dependency>
-
         <dependency>
             <groupId>org.telegram</groupId>
             <artifactId>telegrambots-spring-boot-starter</artifactId>

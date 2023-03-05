@@ -28,8 +28,6 @@ public class Restaurant extends BaseUserEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Account account;
-//    @OneToMany(mappedBy = "restaurant")
-//    private List<Food> foods = new ArrayList<>();
 
     public static Restaurant newRestaurant(String name, String description, String url, Account account){
         Restaurant restaurant = new Restaurant();
@@ -37,14 +35,6 @@ public class Restaurant extends BaseUserEntity {
         restaurant.description = description;
         restaurant.url = url;
         restaurant.account = account;
-//        restaurant.addFood(food);
         return restaurant;
     }
-//
-//    public void addFood(Food... foods) {
-//        this.foods.addAll(List.of(foods));
-//        for (Food food : foods) {
-//            food.setRestaurant(this);
-//        }
-//    }
 }
