@@ -37,8 +37,8 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <build.profile.id>local</build.profile.id>
-                <profileActive>local</profileActive>
+                <build.profile.id>test</build.profile.id>
+                <profileActive>test</profileActive>
             </properties>
         </profile>
         <profile>
