@@ -31,6 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
-application.yml
 application-prod.yml
 application-local.yml
