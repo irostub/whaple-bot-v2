@@ -10,10 +10,11 @@
     </parent>
     <groupId>com.irostub</groupId>
     <artifactId>whaple</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>whaple</name>
     <description>whaple</description>
     <properties>
+        <spring-cloud.version>2021.0.5</spring-cloud.version>
         <java.version>11</java.version>
     </properties>
     <repositories>
@@ -25,6 +26,13 @@
     <profiles>
         <profile>
             <id>local</id>
+            <properties>
+                <build.profile.id>local</build.profile.id>
+                <profileActive>local</profileActive>
+            </properties>
+        </profile>
+        <profile>
+            <id>test</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
@@ -41,8 +49,22 @@
             </properties>
         </profile>
     </profiles>
-
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.github.hkirk</groupId>
             <artifactId>java-html2image</artifactId>

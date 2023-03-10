@@ -1,0 +1,5 @@
+spring:
+  profiles:
+    active: @profileActive@
+  config:
+    import: optional:configserver:http://localhost:8888
