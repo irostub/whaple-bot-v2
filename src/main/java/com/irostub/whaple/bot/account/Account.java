@@ -61,4 +61,8 @@ public class Account extends BaseEntity {
         this.checkIo = !checkIo;
         return checkIo;
     }
+
+    public void updateUserChatId(Long userChatId){
+        this.userChatId = userChatId;
+    }
 }

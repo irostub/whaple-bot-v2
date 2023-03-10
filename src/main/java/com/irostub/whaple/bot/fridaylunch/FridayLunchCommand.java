@@ -29,7 +29,7 @@ public class FridayLunchCommand extends DefaultBotCommand implements IManCommand
 
     @Override
     public boolean isValid(AbsSender absSender, Message message, String[] arguments) {
-        if(message.isGroupMessage()){
+        if(message.isGroupMessage() || message.isSuperGroupMessage()){
             return true;
         }
 

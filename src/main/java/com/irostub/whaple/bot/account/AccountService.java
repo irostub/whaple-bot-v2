@@ -35,7 +35,7 @@ public class AccountService {
 
         Account account = accountRepository.findByAccountId(userId)
                 .orElseGet(() -> Account.create(userId, firstName, lastName, userName, chatId));
-
+        account.updateUserChatId(chatId);
         return accountRepository.save(account);
     }
 }

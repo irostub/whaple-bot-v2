@@ -34,7 +34,7 @@ public class CheckIoScheduler {
                     .chatId(account.getUserChatId())
                     .build();
             try {
-                absSender.executeAsync(send);
+                absSender.execute(send);
             } catch (TelegramApiException e) {
                 throw new RuntimeException(e);
             }

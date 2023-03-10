@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 @Component
 public class FridayLunchScheduler {
     private final FridayLunchRepository fridayLunchRepository;
+    private final FridayLunchAccountRepository fridayLunchAccountRepository;
     private final FridaySendMessageQueueRepository queueRepository;
     private final AbsSender absSender;
     @Scheduled(cron = "0 0 9 ? * 4", zone="Asia/Seoul")
@@ -87,5 +88,8 @@ public class FridayLunchScheduler {
                 throw new RuntimeException(e);
             }
         }
+
+        //신청자 초기화
+        fridayLunchAccountRepository.deleteAll();
     }
 }
