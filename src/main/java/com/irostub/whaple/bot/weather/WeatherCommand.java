@@ -67,7 +67,7 @@ public class WeatherCommand extends DefaultBotCommand {
         XYLatLng xyLatLng = convertGpsAndGrid.convertGRID_GPS(ConvertGpsAndGrid.TO_GRID, y_gps, x_gps);
 
         Map<Category, FixedShortTermWeatherData> fixedShortTermWeatherDataMap = weatherService
-                .sendCurrentWeatherRequest(xyLatLng.getXString(), xyLatLng.getYString());
+                .requestWithGrid(xyLatLng.getXString(), xyLatLng.getYString());
 
         SendMessage sendMessage = WeatherMessageDirector.weatherMessage(chat.getId().toString(), fixedShortTermWeatherDataMap, addressName);
         try {

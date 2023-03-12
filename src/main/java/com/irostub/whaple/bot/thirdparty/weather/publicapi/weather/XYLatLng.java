@@ -15,7 +15,6 @@ public class XYLatLng {
     }
 
     public String getYString() {
-
         return String.format("%.0f",y);
     }
 }

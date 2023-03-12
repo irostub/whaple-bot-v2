@@ -1,5 +1,6 @@
 package com.irostub.whaple.bot.account;
 
+import com.irostub.whaple.bot.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,10 @@ public class AccountService {
 
     public Account findByIdWithNull(Long userId) {
         return accountRepository.findByAccountId(userId).orElse(null);
+    }
+
+    public Account findById(Long userId){
+        return accountRepository.findByAccountId(userId).orElseThrow(NotFoundException::new);
     }
 
     @Transactional

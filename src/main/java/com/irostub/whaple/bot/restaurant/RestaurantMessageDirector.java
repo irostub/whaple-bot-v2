@@ -89,7 +89,7 @@ public class RestaurantMessageDirector {
                 .build();
     }
 
-    public static SendMessage successIgnoreRestuarantMessage(Chat chat, String restaurantName) {
+    public static SendMessage successIgnoreRestaurantMessage(Chat chat, String restaurantName) {
         return SendMessage.builder()
                 .chatId(getChatId(chat))
                 .text(restaurantName + "(이)가 무시되었어요.\n" + restaurantName + "(을)를 싫어하시나봐요? 🤔")

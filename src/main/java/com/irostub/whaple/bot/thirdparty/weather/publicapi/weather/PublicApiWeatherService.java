@@ -15,6 +15,7 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
@@ -25,11 +26,41 @@ import java.util.Map;
 public class PublicApiWeatherService {
     private final AppProperties appProperties;
 
-    public Map<Category, FixedShortTermWeatherData> sendCurrentWeatherRequest(String nx, String ny){
+    public VilageFcstResponse requestShortTermWithGrid(String nx, String ny) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+        LocalDateTime now = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
+
+        String yyyyMMdd = now.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        UriComponents uriComponents = UriComponentsBuilder
+                .fromUriString(appProperties.getPublicApi().getWeather().getUrl() + "/getVilageFcst")
+                .queryParam("serviceKey", appProperties.getPublicApi().getWeather().getToken())
+                .queryParam("pageNo", 1)
+                .queryParam("numOfRows", 500)
+                .queryParam("dataType", "JSON")
+                .queryParam("base_date", yyyyMMdd)
+                .queryParam("base_time", "0200")
+                .queryParam("nx", nx)
+                .queryParam("ny", ny)
+                .build(false);
+
+        DefaultUriBuilderFactory defaultUriBuilderFactory = new DefaultUriBuilderFactory();
+        defaultUriBuilderFactory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.NONE);
+
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setUriTemplateHandler(defaultUriBuilderFactory);
+
+        HttpEntity<?> entity = new HttpEntity<>(headers);
+        ResponseEntity<VilageFcstResponse> exchange = restTemplate.exchange(uriComponents.toUriString(), HttpMethod.GET, entity, VilageFcstResponse.class);
+
+        return exchange.getBody();
+    }
+
+    public Map<Category, FixedShortTermWeatherData> requestWithGrid(String nx, String ny){
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
 
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
         String yyyy = now.format(DateTimeFormatter.ofPattern("yyyy"));
         String month = now.format(DateTimeFormatter.ofPattern("MM"));
         String dd = now.format(DateTimeFormatter.ofPattern("dd"));
@@ -64,8 +95,6 @@ public class PublicApiWeatherService {
         restTemplate.setUriTemplateHandler(defaultUriBuilderFactory);
 
         HttpEntity<?> entity = new HttpEntity<>(headers);
-        ResponseEntity<String> exchange2 = restTemplate.exchange(uriComponents.toUriString(), HttpMethod.GET, entity, String.class);
-        log.info("String={}", exchange2);
         ResponseEntity<WeatherResponse> exchange1 = restTemplate.exchange(uriComponents.toUriString(), HttpMethod.GET, entity, WeatherResponse.class);
         log.info(exchange1.getStatusCode().toString());
         log.info("ResponseEntity: " + exchange1);

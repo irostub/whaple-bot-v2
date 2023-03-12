@@ -6,7 +6,6 @@ import com.irostub.whaple.bot.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
@@ -23,7 +22,7 @@ import static com.irostub.whaple.bot.restaurant.RestaurantMessageDirector.delete
 import static com.irostub.whaple.bot.restaurant.RestaurantMessageDirector.deleteRestaurantMessage;
 import static com.irostub.whaple.bot.restaurant.RestaurantMessageDirector.ignoreRestaurantExistMessage;
 import static com.irostub.whaple.bot.restaurant.RestaurantMessageDirector.notExistIgnoreRestaurantMessage;
-import static com.irostub.whaple.bot.restaurant.RestaurantMessageDirector.successIgnoreRestuarantMessage;
+import static com.irostub.whaple.bot.restaurant.RestaurantMessageDirector.successIgnoreRestaurantMessage;
 import static com.irostub.whaple.bot.restaurant.RestaurantMessageDirector.successRestoreIgnoreRestaurantMessage;
 
 @RequiredArgsConstructor
@@ -102,7 +101,7 @@ public class RestaurantService {
         } else {
             IgnoreRestaurant ignoreRestaurant = new IgnoreRestaurant(account, restaurant);
             ignoreRestaurantRepository.save(ignoreRestaurant);
-            message = successIgnoreRestuarantMessage(chat, restaurantName);
+            message = successIgnoreRestaurantMessage(chat, restaurantName);
         }
         sendMessage(absSender, message);
     }
