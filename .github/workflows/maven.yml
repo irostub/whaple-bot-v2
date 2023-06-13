@@ -10,12 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      #test 용 properties 를 추가
       - uses: actions/checkout@v3
-      - run: touch ./src/main/resources/application-test.properties
-      - run: echo "${{ secrets.TEST_PROPERTIES }}" > ./src/main/resources/application-test.properties
-      - run: cat ./src/main/resources/application-test.properties
-      
       - name: Set up JDK 11
         uses: actions/setup-java@v3
         with:
@@ -24,17 +19,29 @@ jobs:
           cache: maven
 
       - name: Build with Maven
-        run: mvn -B package --file pom.xml -P test
+        run: mvn -B package --file pom.xml -DskipTests
 
-      - name: copy file
+      - name: copy whaple standard file
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.MASTER_HOST }}
           username: ${{ secrets.MASTER_USERNAME }}
           password: ${{ secrets.MASTER_PASSWORD }}
           port: ${{ secrets.MASTER_PORT }}
-          source: "./target/whaple-0.0.1.jar"
-          target: "${{ secrets.WHAPLE_PATH }}"
+          source: "./whaple-standard/target/whaple-standard-0.0.1.jar"
+          target: "${{ secrets.WHAPLE_STANDARD_PATH }}"
+          #scp dir path deep level 세팅
+          strip_components: 1
+
+      - name: copy whaple market file
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.MASTER_HOST }}
+          username: ${{ secrets.MASTER_USERNAME }}
+          password: ${{ secrets.MASTER_PASSWORD }}
+          port: ${{ secrets.MASTER_PORT }}
+          source: "./whaple-market/target/whaple-market-0.0.1.jar"
+          target: "${{ secrets.WHAPLE_MARKET_PATH }}"
           #scp dir path deep level 세팅
           strip_components: 1
 
@@ -51,5 +58,7 @@ jobs:
           password: ${{ secrets.MASTER_PASSWORD }}
           port: ${{ secrets.MASTER_PORT }}
           script: |
-            cd ${{ secrets.WHAPLE_PATH }}
-            ${{ secrets.RUN }}
+            cd ${{ secrets.WHAPLE_STANDARD_PATH }}
+            ${{ secrets.WHAPLE_STANDARD_RUN }}
+            cd ${{ secrets.WHAPLE_MARKET_PATH }}
+            ${{ secrets.WHAPLE_MARKET_RUN }}

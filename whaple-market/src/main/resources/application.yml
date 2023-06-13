@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: whaple-market
+  profiles:
+    active: @profileActive@
+  config:
+    import: optional:configserver:http://localhost:8888
