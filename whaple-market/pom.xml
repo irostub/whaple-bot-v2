@@ -62,7 +62,7 @@
     <dependencies>
         <dependency>
             <groupId>com.irostub</groupId>
-            <artifactId>domain</artifactId>
+            <artifactId>whaple-domain</artifactId>
             <version>0.0.1</version>
         </dependency>
         <dependency>
