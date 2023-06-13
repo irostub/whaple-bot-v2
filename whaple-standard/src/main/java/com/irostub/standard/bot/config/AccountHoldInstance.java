@@ -10,10 +10,4 @@ import lombok.NoArgsConstructor;
 public class AccountHoldInstance {
     private Long id;
     private Long accountId;
-
-    public static void main(String[] args) {
-        System.out.println("hello");
-    }
-
-
 }
