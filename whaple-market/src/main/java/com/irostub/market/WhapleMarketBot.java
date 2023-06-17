@@ -9,7 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 @Slf4j
 @Component
 public class WhapleMarketBot extends TelegramLongPollingBot {
-    @Value("${app.bot.name}")
+    @Value("${app.bot.bot-username}")
     private String name;
 
     public WhapleMarketBot(@Value("${app.bot.token}")String token) {
