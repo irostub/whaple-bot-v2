@@ -7,9 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.irostub.domain.entity.QAccount.account;
-import static com.irostub.domain.entity.QIgnoreRestaurant.ignoreRestaurant;
-import static com.irostub.domain.entity.QRestaurant.restaurant;
+import static com.irostub.domain.entity.standard.QAccount.account;
+import static com.irostub.domain.entity.standard.QIgnoreRestaurant.ignoreRestaurant;
+import static com.irostub.domain.entity.standard.QRestaurant.restaurant;
 
 @RequiredArgsConstructor
 @Repository
