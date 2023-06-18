@@ -1,7 +1,7 @@
 package com.irostub.standard.bot.fridaylunch;
 
-import com.irostub.domain.entity.ChatGroup;
-import com.irostub.domain.entity.FridayLunch;
+import com.irostub.domain.entity.standard.ChatGroup;
+import com.irostub.domain.entity.standard.FridayLunch;
 import com.irostub.domain.repository.ChatGroupRepository;
 import com.irostub.domain.repository.FridayLunchRepository;
 import com.irostub.standard.bot.exception.NotFoundException;

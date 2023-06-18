@@ -1,6 +1,6 @@
 package com.irostub.standard.bot.account;
 
-import com.irostub.domain.entity.Account;
+import com.irostub.domain.entity.standard.Account;
 import com.irostub.domain.repository.AccountRepository;
 import com.irostub.standard.bot.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;

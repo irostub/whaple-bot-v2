@@ -2,7 +2,7 @@ package com.irostub.standard.bot.checkio;
 
 import com.irostub.standard.bot.DefaultBotCommand;
 import com.irostub.standard.bot.IManCommand;
-import com.irostub.domain.entity.Account;
+import com.irostub.domain.entity.standard.Account;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Chat;

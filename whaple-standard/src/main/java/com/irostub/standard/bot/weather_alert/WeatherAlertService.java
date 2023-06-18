@@ -1,7 +1,7 @@
 package com.irostub.standard.bot.weather_alert;
 
-import com.irostub.domain.entity.Account;
-import com.irostub.domain.entity.WeatherAlert;
+import com.irostub.domain.entity.standard.Account;
+import com.irostub.domain.entity.standard.WeatherAlert;
 import com.irostub.domain.repository.WeatherAlertRepository;
 import com.irostub.standard.bot.account.AccountService;
 import lombok.RequiredArgsConstructor;

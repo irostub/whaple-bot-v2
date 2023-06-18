@@ -1,6 +1,6 @@
 package com.irostub.domain.repository;
 
-import com.irostub.domain.entity.Restaurant;
+import com.irostub.domain.entity.standard.Restaurant;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 

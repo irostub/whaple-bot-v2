@@ -1,7 +1,7 @@
 package com.irostub.domain.repository;
 
-import com.irostub.domain.entity.ChatGroup;
-import com.irostub.domain.entity.FridayLunch;
+import com.irostub.domain.entity.standard.ChatGroup;
+import com.irostub.domain.entity.standard.FridayLunch;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

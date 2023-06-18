@@ -1,6 +1,6 @@
 package com.irostub.standard.bot.account;
 
-import com.irostub.domain.entity.ChatGroup;
+import com.irostub.domain.entity.standard.ChatGroup;
 import com.irostub.domain.repository.ChatGroupRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

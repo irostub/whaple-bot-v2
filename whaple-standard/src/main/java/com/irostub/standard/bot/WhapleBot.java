@@ -1,6 +1,6 @@
 package com.irostub.standard.bot;
 
-import com.irostub.domain.entity.Account;
+import com.irostub.domain.entity.standard.Account;
 import com.irostub.standard.bot.account.AccountService;
 import com.irostub.standard.bot.account.ChatGroupUserService;
 import com.irostub.standard.bot.config.AccountHoldInstance;

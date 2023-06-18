@@ -1,11 +1,11 @@
 package com.irostub.standard.bot.fridaylunch;
 
-import com.irostub.domain.entity.Account;
-import com.irostub.domain.entity.FridayLunch;
-import com.irostub.domain.entity.FridayLunchAccount;
+import com.irostub.domain.entity.standard.Account;
+import com.irostub.domain.entity.standard.FridayLunch;
+import com.irostub.domain.entity.standard.FridayLunchAccount;
 import com.irostub.domain.repository.FridayLunchAccountRepository;
 import com.irostub.domain.repository.FridayLunchRepository;
-import com.irostub.domain.entity.FridaySendMessageQueue;
+import com.irostub.domain.entity.standard.FridaySendMessageQueue;
 import com.irostub.domain.repository.FridaySendMessageQueueRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

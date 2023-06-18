@@ -1,6 +1,6 @@
 package com.irostub.domain.repository;
 
-import com.irostub.domain.entity.IgnoreRestaurant;
+import com.irostub.domain.entity.standard.IgnoreRestaurant;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

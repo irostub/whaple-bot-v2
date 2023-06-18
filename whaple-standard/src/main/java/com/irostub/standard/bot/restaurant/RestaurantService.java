@@ -1,10 +1,10 @@
 package com.irostub.standard.bot.restaurant;
 
-import com.irostub.domain.entity.Account;
-import com.irostub.domain.entity.IgnoreRestaurant;
+import com.irostub.domain.entity.standard.Account;
+import com.irostub.domain.entity.standard.IgnoreRestaurant;
 import com.irostub.domain.repository.IgnoreRestaurantQueryRepository;
 import com.irostub.domain.repository.IgnoreRestaurantRepository;
-import com.irostub.domain.entity.Restaurant;
+import com.irostub.domain.entity.standard.Restaurant;
 import com.irostub.domain.repository.RestaurantRepository;
 import com.irostub.domain.repository.AccountRepository;
 import com.irostub.standard.bot.exception.NotFoundException;

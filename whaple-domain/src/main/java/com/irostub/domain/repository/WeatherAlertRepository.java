@@ -1,7 +1,7 @@
 package com.irostub.domain.repository;
 
-import com.irostub.domain.entity.Account;
-import com.irostub.domain.entity.WeatherAlert;
+import com.irostub.domain.entity.standard.Account;
+import com.irostub.domain.entity.standard.WeatherAlert;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 

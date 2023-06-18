@@ -1,7 +1,7 @@
 package com.irostub.domain.repository;
 
 
-import com.irostub.domain.entity.Restaurant;
+import com.irostub.domain.entity.standard.Restaurant;
 import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;

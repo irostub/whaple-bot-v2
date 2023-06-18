@@ -1,6 +1,6 @@
 package com.irostub.standard.bot.restaurant;
 
-import com.irostub.domain.entity.Restaurant;
+import com.irostub.domain.entity.standard.Restaurant;
 import com.irostub.standard.bot.DefaultBotCommand;
 import com.irostub.standard.bot.IManCommand;
 import com.irostub.standard.bot.config.AccountHolder;

@@ -1,8 +1,8 @@
 package com.irostub.domain.repository;
 
-import com.irostub.domain.entity.Account;
-import com.irostub.domain.entity.IgnoreRestaurant;
-import com.irostub.domain.entity.Restaurant;
+import com.irostub.domain.entity.standard.Account;
+import com.irostub.domain.entity.standard.IgnoreRestaurant;
+import com.irostub.domain.entity.standard.Restaurant;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

@@ -1,6 +1,6 @@
 package com.irostub.domain.repository;
 
-import com.irostub.domain.entity.Account;
+import com.irostub.domain.entity.standard.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

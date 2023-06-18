@@ -1,5 +1,6 @@
-package com.irostub.domain.entity;
+package com.irostub.domain.entity.standard;
 
+import com.irostub.domain.entity.BaseUserEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

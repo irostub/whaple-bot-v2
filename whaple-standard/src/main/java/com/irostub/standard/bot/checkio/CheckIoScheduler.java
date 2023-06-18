@@ -1,6 +1,6 @@
 package com.irostub.standard.bot.checkio;
 
-import com.irostub.domain.entity.Account;
+import com.irostub.domain.entity.standard.Account;
 import com.irostub.standard.bot.utils.HolidayUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;

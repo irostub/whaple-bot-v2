@@ -1,11 +1,10 @@
-package com.irostub.domain.entity;
+package com.irostub.domain.entity.standard;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,20 +12,21 @@ import javax.persistence.ManyToOne;
 
 @Getter @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class IgnoreRestaurant extends BaseEntity {
-
+public class FridayLunchAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Account account;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Restaurant restaurant;
+    @ManyToOne
+    private FridayLunch fridayLunch;
 
-    public IgnoreRestaurant(Account account, Restaurant restaurant) {
-        this.account = account;
-        this.restaurant = restaurant;
+    public static FridayLunchAccount create(Account account, FridayLunch fridayLunch){
+        FridayLunchAccount fridayLunchAccount = new FridayLunchAccount();
+        fridayLunchAccount.account = account;
+        fridayLunchAccount.fridayLunch = fridayLunch;
+        return fridayLunchAccount;
     }
 }

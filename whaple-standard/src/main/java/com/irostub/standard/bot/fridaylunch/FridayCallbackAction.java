@@ -1,8 +1,8 @@
 package com.irostub.standard.bot.fridaylunch;
 
-import com.irostub.domain.entity.Account;
-import com.irostub.domain.entity.FridayLunch;
-import com.irostub.domain.entity.FridayLunchAccount;
+import com.irostub.domain.entity.standard.Account;
+import com.irostub.domain.entity.standard.FridayLunch;
+import com.irostub.domain.entity.standard.FridayLunchAccount;
 import com.irostub.domain.repository.AccountRepository;
 import com.irostub.domain.repository.FridayLunchAccountRepository;
 import com.irostub.domain.repository.FridayLunchRepository;
