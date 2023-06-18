@@ -19,7 +19,7 @@ jobs:
           cache: maven
 
       - name: Build with Maven
-        run: mvn -B install --file pom.xml -DskipTests
+        run: ./mvnw -B install --file pom.xml -DskipTests
 
       - name: copy whaple standard file
         uses: appleboy/scp-action@master
