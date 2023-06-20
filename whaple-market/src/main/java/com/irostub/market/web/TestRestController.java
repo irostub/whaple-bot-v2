@@ -67,6 +67,7 @@ public class TestRestController {
         String initData = body.getToken().replaceAll("^\"|\"$", "");
         String[] split = initData.split("&");
         String collect = Arrays.stream(split)
+                .filter(s->!s.startsWith("hash="))
                 .sorted()
                 .collect(Collectors.joining("\n"));
         log.info("collect={}", collect);
