@@ -50,7 +50,7 @@ public class TestRestController {
         log.info("hash={}", body.getHash());
         String s1 = body.getToken().replaceAll("^\"|\"$", "");
         String[] split = s1.split("&");
-        String collect = Arrays.stream(split).sorted().collect(Collectors.joining("\n"));
+        String collect = Arrays.stream(split).filter(s->!s.startsWith("hash=")).sorted().collect(Collectors.joining("\n"));
         log.info("collect={}", collect);
         String s = hmacAndHex(token, "WebAppData", "HmacSHA256");
         if (hmacAndHex(collect, s, "HmacSHA256").equals(body.hash)) {
