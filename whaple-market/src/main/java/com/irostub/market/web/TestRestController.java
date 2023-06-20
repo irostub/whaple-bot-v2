@@ -29,6 +29,10 @@ public class TestRestController {
         return Hex.encodeHexString(hash);
     }
 
+    public static void main(String[] args) {
+        String s = Hex.encodeHexString("hello".getBytes());
+        System.out.println(s);
+    }
     public static byte[] getBytes(String secret, String data, String Algorithms) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
         //1. SecretKeySpec 클래스를 사용한 키 생성
         SecretKeySpec secretKey = new SecretKeySpec(secret.getBytes("utf-8"), Algorithms);
@@ -46,14 +50,22 @@ public class TestRestController {
 
     @PostMapping("/test/btn")
     public ResponseEntity<?> testBtn(@RequestBody Data body, @Value("${app.bot.token}") String token) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
-        log.info("token={}", body.getToken());
-        log.info("hash={}", body.getHash());
-        String s1 = body.getToken().replaceAll("^\"|\"$", "");
-        String[] split = s1.split("&");
-        String collect = Arrays.stream(split).filter(s->!s.startsWith("hash=")).sorted().collect(Collectors.joining("\n"));
+        String initData = body.getToken().replaceAll("^\"|\"$", "");
+        String[] split = initData.split("&");
+        String collect = Arrays.stream(split)
+                .filter(s->!s.startsWith("hash="))
+                .sorted()
+                .collect(Collectors.joining("\n"));
         log.info("collect={}", collect);
-        String s = hmacAndHex(token, "WebAppData", "HmacSHA256");
-        if (hmacAndHex(collect, s, "HmacSHA256").equals(body.hash)) {
+
+
+        String secret = hmacAndHex(Hex.encodeHexString("WebAppData".getBytes()), Hex.encodeHexString(token.getBytes()), "HmacSHA256");
+        String hmacSHA256 = hmacAndHex(secret, Hex.encodeHexString(collect.getBytes()), "HmacSHA256");
+        log.info(secret);
+        log.info(hmacSHA256);
+        log.info(body.hash);
+        log.info(Hex.encodeHexString(body.hash.getBytes()));
+        if (hmacSHA256.equals(body.hash)) {
             log.info("success");
             return ResponseEntity.ok().build();
         }
