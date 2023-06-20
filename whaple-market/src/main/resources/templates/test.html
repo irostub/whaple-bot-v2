@@ -15,10 +15,10 @@ HELLO!!!
 <script>
     document.getElementById("btn-push").addEventListener('click', ()=>{
         console.log(window.Telegram.WebApp)
-        console.log(window.Telegram.WebApp.WebAppInitData)
-        console.log(window.Telegram.WebApp.WebAppInitData.WebAppUser)
-        console.log(window.Telegram.WebApp.WebAppInitData.WebAppUser.username)
-        const username = window.Telegram.WebApp.WebAppInitData.WebAppUser.username;
+        console.log(window.Telegram.WebApp.initDataUnsafe)
+        console.log(window.Telegram.WebApp.initDataUnsafe.user)
+        console.log(window.Telegram.WebApp.initDataUnsafe.user.username)
+        const username = window.Telegram.WebApp.initDataUnsafe.user.username;
         axios({
             method: 'post',
             url: 'https://market.iro.ooo/test/btn',
