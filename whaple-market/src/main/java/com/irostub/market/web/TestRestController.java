@@ -64,8 +64,7 @@ public class TestRestController {
 
     @PostMapping("/test/btn")
     public ResponseEntity<?> testBtn(@RequestBody Data body, @Value("${app.bot.token}") String token) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
-        String initData = body.getToken().replaceAll("^\"|\"$", "");
-        String[] split = initData.split("&");
+        String[] split = body.getToken().split("&");
         String collect = Arrays.stream(split)
                 .filter(s->!s.startsWith("hash="))
                 .sorted()
@@ -73,7 +72,7 @@ public class TestRestController {
         log.info("collect={}", collect);
 
 
-        byte[] secret = hmacAndHex("WebAppData", token, "HmacSHA256");
+        byte[] secret = hmacAndHex(Hex.encodeHexString("WebAppData".getBytes()), token, "HmacSHA256");
         byte[] hmacSHA256s = hmacAndHex(secret, collect, "HmacSHA256");
 
         log.info(body.hash);
