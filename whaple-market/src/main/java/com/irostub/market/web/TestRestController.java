@@ -12,8 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin("*")
 public class TestRestController {
     @PostMapping("/test/btn")
-    public ResponseEntity<?> testBtn(@RequestBody String body) {
-        log.info(body);
+    public ResponseEntity<?> testBtn(@RequestBody Data body) {
+        log.info("data={}", body);
         return ResponseEntity.ok().build();
+    }
+
+    @lombok.Data
+    static class Data{
+        String userId;
+        String token;
     }
 }
