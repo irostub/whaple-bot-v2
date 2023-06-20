@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -23,6 +23,13 @@ import java.security.NoSuchAlgorithmException;
 public class TestRestController {
     public static String hmacAndHex(String secret, String data, String Algorithms) throws NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException {
 
+        byte[] hash = getBytes(secret, data, Algorithms);
+
+        //4. Hex Encode to String
+        return Hex.encodeHexString(hash);
+    }
+
+    public static byte[] getBytes(String secret, String data, String Algorithms) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
         //1. SecretKeySpec 클래스를 사용한 키 생성
         SecretKeySpec secretKey = new SecretKeySpec(secret.getBytes("utf-8"), Algorithms);
 
@@ -34,19 +41,19 @@ public class TestRestController {
 
         //3. 암호화 하려는 데이터의 바이트의 배열을 처리해 MAC 조작을 종료
         byte[] hash = hasher.doFinal(data.getBytes());
-
-        //4. Hex Encode to String
-        return Hex.encodeHexString(hash);
+        return hash;
     }
 
     @PostMapping("/test/btn")
     public ResponseEntity<?> testBtn(@RequestBody Data body, @Value("${app.bot.token}") String token) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
         log.info("token={}", body.getToken());
         log.info("hash={}", body.getHash());
-        String decode = URLDecoder.decode(body.getToken(), StandardCharsets.UTF_8);
-        log.info("decode={}", decode);
+        String s1 = body.getToken().replaceAll("^\"|\"$", "");
+        String[] split = s1.split("&");
+        String collect = Arrays.stream(split).sorted().collect(Collectors.joining("\n"));
+        log.info("collect={}", collect);
         String s = hmacAndHex(token, "WebAppData", "HmacSHA256");
-        if (hmacAndHex(decode, s, "HmacSHA256").equals(body.hash)) {
+        if (hmacAndHex(collect, s, "HmacSHA256").equals(body.hash)) {
             log.info("success");
             return ResponseEntity.ok().build();
         }
