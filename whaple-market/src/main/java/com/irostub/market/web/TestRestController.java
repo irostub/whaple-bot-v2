@@ -59,8 +59,8 @@ public class TestRestController {
         log.info("collect={}", collect);
 
 
-        String secret = hmacAndHex(Hex.encodeHexString("WebAppData".getBytes()), Hex.encodeHexString(token.getBytes()), "HmacSHA256");
-        String hmacSHA256 = hmacAndHex(secret, Hex.encodeHexString(collect.getBytes()), "HmacSHA256");
+        String secret = hmacAndHex(Hex.encodeHexString("WebAppData".getBytes()), token, "HmacSHA256");
+        String hmacSHA256 = hmacAndHex(secret, collect, "HmacSHA256");
         log.info(secret);
         log.info(hmacSHA256);
         log.info(body.hash);
