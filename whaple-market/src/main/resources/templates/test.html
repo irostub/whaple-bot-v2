@@ -14,7 +14,7 @@ HELLO!!!
 <button id="btn-push" type="button">push</button>
 <script>
     document.getElementById("btn-push").addEventListener('click', ()=>{
-        const username = Telegram.WebApp.WebAppUser.username;
+        const username = window.Telegram.WebApp.WebAppUser.username;
         axios({
             method: 'post',
             url: 'https://market.iro.ooo/test/btn',
