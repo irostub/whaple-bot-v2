@@ -16,12 +16,14 @@ HELLO!!!
     document.getElementById("btn-push").addEventListener('click', ()=>{
         console.log(window.Telegram.WebApp.initDataUnsafe.user.id)
         const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
+        const hash = window.Telegram.WebApp.initDataUnsafe.hash;
         axios({
             method: 'post',
             url: 'https://market.iro.ooo/test/btn',
             data: {
                 "token":window.Telegram.WebApp.initData,
-                "userId":username
+                "userId":userId,
+                "hash":hash
             }
         });
     })
