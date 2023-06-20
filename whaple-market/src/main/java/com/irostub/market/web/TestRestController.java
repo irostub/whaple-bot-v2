@@ -39,6 +39,8 @@ public class TestRestController {
 
     @PostMapping("/test/btn")
     public ResponseEntity<?> testBtn(@RequestBody Data body, @Value("${app.bot.token}") String token) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
+        log.info("token={}", body.getToken());
+        log.info("hash={}", body.getHash());
         String s = hmacAndHex(token, "WebAppData", "HmacSHA256");
         if (hmacAndHex(body.getToken(), s, "HmacSHA256").equals(body.hash)) {
             log.info("success");
