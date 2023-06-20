@@ -69,7 +69,7 @@ public class TestRestController {
                 .sorted()
                 .collect(Collectors.joining("\n"));
         log.info("collect={}", collect);
-        String hash = Arrays.stream(split).filter(s -> !s.startsWith("hash")).findFirst().get();
+        String hash = Arrays.stream(split).filter(s -> s.startsWith("hash")).findFirst().get();
 
         byte[] secret = hmacAndHex("WebAppData", token, "HmacSHA256");
         byte[] hmacSHA256s = hmacAndHex(secret, collect, "HmacSHA256");
