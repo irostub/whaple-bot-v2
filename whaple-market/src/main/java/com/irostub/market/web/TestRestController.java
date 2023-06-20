@@ -67,7 +67,7 @@ public class TestRestController {
         String[] split = body.getToken().split("&");
         String collect = Arrays.stream(split)
                 .sorted()
-                .collect(Collectors.joining("\\n"));
+                .collect(Collectors.joining("\n"));
         log.info("collect={}", collect);
         String hash = Arrays.stream(split).filter(s -> !s.startsWith("hash")).findFirst().get();
 
