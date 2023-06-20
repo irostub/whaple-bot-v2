@@ -14,11 +14,8 @@ HELLO!!!
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
     document.getElementById("btn-push").addEventListener('click', ()=>{
-        console.log(window.Telegram.WebApp)
-        console.log(window.Telegram.WebApp.initDataUnsafe)
-        console.log(window.Telegram.WebApp.initDataUnsafe.user)
-        console.log(window.Telegram.WebApp.initDataUnsafe.user.username)
-        const username = window.Telegram.WebApp.initDataUnsafe.user.username;
+        console.log(window.Telegram.WebApp.initDataUnsafe.user.id)
+        const username = window.Telegram.WebApp.initDataUnsafe.user.id;
         axios({
             method: 'post',
             url: 'https://market.iro.ooo/test/btn',
