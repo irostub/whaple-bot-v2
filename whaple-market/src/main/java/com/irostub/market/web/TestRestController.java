@@ -27,7 +27,6 @@ public class TestRestController {
     public ResponseEntity<?> testBtn(@RequestBody Data body, @Value("${app.bot.token}") String token) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
         String[] split = body.getToken().split("&");
         String dataCheckString = Arrays.stream(split)
-                .filter(s-> !s.startsWith("hash"))
                 .sorted()
                 .collect(Collectors.joining("\n"));
         log.info("dataCheckString={}", dataCheckString);
