@@ -1,6 +1,7 @@
 package com.irostub.market.web;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.codec.binary.Hex;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -39,10 +39,10 @@ public class TestRestController {
         SecretKeySpec secret_key2 = new SecretKeySpec(firstKey, "HmacSHA256");
         newMacSha256.init(secret_key2);
         byte[] bytes = newMacSha256.doFinal(dataCheckString.getBytes());
-        String hex = String.format("%040x", new BigInteger(1, bytes));
+        String hex = Hex.encodeHexString(bytes);
         log.info(hash);
         log.info(hex);
-        if (hex.equals(hash)) {
+        if (hex.equals(hash.substring(5))) {
             log.info("success");
             return ResponseEntity.ok().build();
         }
