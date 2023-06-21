@@ -26,6 +26,7 @@ public class TestRestController {
 
     @PostMapping("/test/btn")
     public ResponseEntity<?> testBtn(@RequestBody Data body, @Value("${app.bot.token}") String token) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
+        log.info(body.getToken());
         String decode = URLDecoder.decode(body.getToken(), StandardCharsets.UTF_8).replaceAll("\"", "");
         log.info(decode);
         String[] split = decode.split("&");
