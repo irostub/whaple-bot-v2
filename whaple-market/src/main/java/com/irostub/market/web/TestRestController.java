@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -32,14 +33,14 @@ public class TestRestController {
         log.info("dataCheckString={}", dataCheckString);
         String hash = Arrays.stream(split).filter(s -> s.startsWith("hash")).findFirst().get();
         Mac hmacSha256 = Mac.getInstance("HmacSHA256");
-        SecretKeySpec secret_key = new SecretKeySpec("WebAppData".getBytes(), "HmacSHA256");
+        SecretKeySpec secret_key = new SecretKeySpec("WebAppData".getBytes(StandardCharsets.UTF_8), "HmacSHA256");
         hmacSha256.init(secret_key);
-        byte[] firstKey = hmacSha256.doFinal(token.getBytes());
+        byte[] firstKey = hmacSha256.doFinal(token.getBytes(StandardCharsets.UTF_8));
 
         Mac newMacSha256 = Mac.getInstance("HmacSHA256");
         SecretKeySpec secret_key2 = new SecretKeySpec(firstKey, "HmacSHA256");
         newMacSha256.init(secret_key2);
-        byte[] bytes = newMacSha256.doFinal(dataCheckString.getBytes());
+        byte[] bytes = newMacSha256.doFinal(dataCheckString.getBytes(StandardCharsets.UTF_8));
         String hex = Hex.encodeHexString(bytes);
         log.info(hash);
         log.info(hex);
