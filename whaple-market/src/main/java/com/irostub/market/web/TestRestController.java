@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -25,7 +26,8 @@ public class TestRestController {
 
     @PostMapping("/test/btn")
     public ResponseEntity<?> testBtn(@RequestBody Data body, @Value("${app.bot.token}") String token) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
-        String[] split = body.getToken().split("&");
+        String decode = URLDecoder.decode(body.getToken(), StandardCharsets.UTF_8);
+        String[] split = decode.split("&");
         String dataCheckString = Arrays.stream(split)
                 .sorted()
                 .collect(Collectors.joining("\n"));
