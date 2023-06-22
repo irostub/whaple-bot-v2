@@ -14,14 +14,15 @@ HELLO!!!
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
     document.getElementById("btn-push").addEventListener('click', ()=>{
-        const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
-        axios({
-            method: 'post',
-            url: 'https://market.iro.ooo/test/btn',
-            data: {
-                "initData" : window.Telegram.WebApp.initData,
-            }
-        });
+        axios.post('https://market.iro.ooo/test/btn',{
+            "initData" : window.Telegram.WebApp.initData
+        })
+        .then(response =>{
+            console.log(response);
+        })
+        .catch(error =>{
+            console.log(error.response.status);
+        })
     })
 </script>
 </body>

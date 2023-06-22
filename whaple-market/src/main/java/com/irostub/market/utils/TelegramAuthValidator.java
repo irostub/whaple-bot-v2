@@ -30,10 +30,10 @@ public class TelegramAuthValidator implements Validator {
             return hmacSha256.doFinal(data.getBytes(StandardCharsets.UTF_8));
         } catch (NoSuchAlgorithmException e) {
             log.error("{} algorithm is not supported", ALGORITHM);
-            throw new RuntimeException(e);
+            throw new TelegramAuthException(e);
         } catch (InvalidKeyException e) {
             log.error("Unable to generate secret key.");
-            throw new RuntimeException(e);
+            throw new TelegramAuthException(e);
         }
     }
 
@@ -49,10 +49,16 @@ public class TelegramAuthValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         InitData initData = (InitData) target;
-        byte[] secKey = HmacSHA256("WebAppData", botToken);
-        byte[] byteHash = HmacSHA256(secKey, initData.getDataCheckString());
-        if(!initData.getHash().equals(Hex.encodeHexString(byteHash))){
+        try {
+            byte[] secKey = HmacSHA256("WebAppData", botToken);
+            byte[] byteHash = HmacSHA256(secKey, initData.getDataCheckString());
+            if (!initData.getHash().equals(Hex.encodeHexString(byteHash))) {
+                errors.reject("valid.fail", "인증되지 않은 요청");
+            }
+        } catch (TelegramAuthException e) {
             errors.reject("valid.fail", "인증되지 않은 요청");
+            log.error("authentication exception occurred");
         }
+
     }
 }
