@@ -17,6 +17,7 @@ import java.security.NoSuchAlgorithmException;
 @Component
 public class TelegramAuthValidator implements Validator {
     private static final String ALGORITHM = "HmacSHA256";
+    private static final String OPEN_VALIDATION_KEY = "WebAppData";
     @Value("${app.bot.token}")
     private String botToken;
 
@@ -50,7 +51,7 @@ public class TelegramAuthValidator implements Validator {
     public void validate(Object target, Errors errors) {
         InitData initData = (InitData) target;
         try {
-            byte[] secKey = HmacSHA256("WebAppData", botToken);
+            byte[] secKey = HmacSHA256(OPEN_VALIDATION_KEY, botToken);
             byte[] byteHash = HmacSHA256(secKey, initData.getDataCheckString());
             if (!initData.getHash().equals(Hex.encodeHexString(byteHash))) {
                 errors.reject("valid.fail", "인증되지 않은 요청");

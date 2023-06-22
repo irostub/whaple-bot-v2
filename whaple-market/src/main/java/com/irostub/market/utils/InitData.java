@@ -15,6 +15,8 @@ import java.util.stream.Collectors;
 @Getter
 public class InitData {
     private static final String HASH_FILED_KEY = "hash=";
+    private static final String INIT_DATA_KEY = "initData";
+    private static final String SPLIT_CHAR = "&";
     @NotBlank
     private String dataCheckString;
     @NotBlank
@@ -22,11 +24,11 @@ public class InitData {
 
     @JsonCreator
     public InitData(Map<String, Object> jsonNode) {
-        if (jsonNode.containsKey("initData")) {
-            String initDataStr = (String) jsonNode.get("initData");
+        if (jsonNode.containsKey(INIT_DATA_KEY)) {
+            String initDataStr = (String) jsonNode.get(INIT_DATA_KEY);
             String urlDecoded = URLDecoder.decode(initDataStr, StandardCharsets.UTF_8);
 
-            this.dataCheckString = Arrays.stream(urlDecoded.split("&"))
+            this.dataCheckString = Arrays.stream(urlDecoded.split(SPLIT_CHAR))
                     .peek(s -> {
                         if (s.startsWith(HASH_FILED_KEY)) {
                             this.hash = s.substring(HASH_FILED_KEY.length());
