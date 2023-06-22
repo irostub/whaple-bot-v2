@@ -22,11 +22,8 @@ public class InitData {
 
     @JsonCreator
     public InitData(Map<String, Object> jsonNode) {
-        log.info("contain key={}",jsonNode.containsKey("initData"));
         if (jsonNode.containsKey("initData")) {
             String initDataStr = (String) jsonNode.get("initData");
-            log.info(initDataStr);
-
             String urlDecoded = URLDecoder.decode(initDataStr, StandardCharsets.UTF_8);
 
             this.dataCheckString = Arrays.stream(urlDecoded.split("&"))
@@ -36,9 +33,8 @@ public class InitData {
                         }
                     })
                     .filter(s -> !s.startsWith(HASH_FILED_KEY))
+                    .sorted()
                     .collect(Collectors.joining("\n"));
-            log.info(dataCheckString);
-            log.info(hash);
         }
     }
 }

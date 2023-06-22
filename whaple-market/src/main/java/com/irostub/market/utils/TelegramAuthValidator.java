@@ -59,6 +59,5 @@ public class TelegramAuthValidator implements Validator {
             errors.reject("valid.fail", "인증되지 않은 요청");
             log.error("authentication exception occurred");
         }
-
     }
 }
