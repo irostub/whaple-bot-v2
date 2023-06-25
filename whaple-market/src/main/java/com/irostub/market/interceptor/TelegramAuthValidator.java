@@ -1,4 +1,4 @@
-package com.irostub.market.utils;
+package com.irostub.market.interceptor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Hex;
@@ -15,7 +15,7 @@ import java.security.NoSuchAlgorithmException;
 
 @Slf4j
 @Component
-public class TelegramAuthValidator implements Validator {
+public class TelegramAuthValidator {
     private static final String ALGORITHM = "HmacSHA256";
     private static final String OPEN_VALIDATION_KEY = "WebAppData";
     @Value("${app.bot.token}")
@@ -42,23 +42,17 @@ public class TelegramAuthValidator implements Validator {
         return HmacSHA256(secret.getBytes(StandardCharsets.UTF_8), data);
     }
 
-    @Override
-    public boolean supports(Class<?> clazz) {
-        return InitData.class.isAssignableFrom(clazz);
-    }
-
-    @Override
-    public void validate(Object target, Errors errors) {
-        InitData initData = (InitData) target;
+    public boolean validate(InitData initData) {
         try {
             byte[] secKey = HmacSHA256(OPEN_VALIDATION_KEY, botToken);
             byte[] byteHash = HmacSHA256(secKey, initData.getDataCheckString());
-            if (!initData.getHash().equals(Hex.encodeHexString(byteHash))) {
-                errors.reject("valid.fail", "인증되지 않은 요청");
+            if (initData.getHash().equals(Hex.encodeHexString(byteHash))) {
+                return true;
             }
+            return false;
         } catch (TelegramAuthException e) {
-            errors.reject("valid.fail", "인증되지 않은 요청");
             log.error("authentication exception occurred");
+            return false;
         }
     }
 }

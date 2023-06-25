@@ -1,4 +1,4 @@
-package com.irostub.market.utils;
+package com.irostub.market.interceptor;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Getter;
@@ -17,6 +17,7 @@ public class InitData {
     private static final String HASH_FILED_KEY = "hash=";
     private static final String INIT_DATA_KEY = "initData";
     private static final String SPLIT_CHAR = "&";
+
     @NotBlank
     private String dataCheckString;
     @NotBlank

@@ -1,4 +1,4 @@
-package com.irostub.market.utils;
+package com.irostub.market.interceptor;
 
 public class TelegramAuthException extends RuntimeException {
     public TelegramAuthException() {
