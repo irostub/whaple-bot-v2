@@ -2,11 +2,13 @@ package com.irostub.market.web;
 
 import com.irostub.domain.entity.market.WebAppUser;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class WebAppUserDto {
     private Long id;
-    private String isBot;
+    private Boolean isBot;
     private String firstName;
     private String lastName;
     private String username;

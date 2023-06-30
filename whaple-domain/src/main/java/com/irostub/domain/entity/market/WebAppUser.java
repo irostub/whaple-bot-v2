@@ -12,7 +12,7 @@ import javax.persistence.Id;
 public class WebAppUser extends BaseEntity {
     @Id
     private Long id;
-    private String isBot;
+    private Boolean isBot;
     private String firstName;
     private String lastName;
     private String username;
@@ -25,7 +25,7 @@ public class WebAppUser extends BaseEntity {
 
     }
 
-    public WebAppUser(Long id, String isBot, String firstName, String lastName, String username, String photoUrl) {
+    public WebAppUser(Long id, Boolean isBot, String firstName, String lastName, String username, String photoUrl) {
         this.id = id;
         this.isBot = isBot;
         this.firstName = firstName;

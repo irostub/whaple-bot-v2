@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,15 +22,16 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/api/v1/resale")
 public class ResaleRestController {
     private final ResaleService resaleService;
 
     @GetMapping("/posts")
-    public ResponseEntity<PagingResponse<List<ResaleDto>>> getResalePosts(@RequestParam Integer page,
-                                                      @RequestParam Integer limit,
-                                                      @RequestParam String name,
-                                                      @RequestParam String keyword){
+    public ResponseEntity<PagingResponse<List<ResaleDto>>> getResalePosts(@RequestParam(defaultValue = "0") Integer page,
+                                                      @RequestParam(defaultValue = "10") Integer limit,
+                                                      @RequestParam(required = false) String name,
+                                                      @RequestParam(required = false) String keyword){
         Page<ResaleDto> search = resaleService.search(page, limit, name, keyword);
         return ResponseEntity.ok(PagingResponse.ok(search));
     }
