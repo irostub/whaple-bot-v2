@@ -16,6 +16,7 @@ public class AppProperties {
     private Bot bot;
     private PublicApi publicApi;
     private Kakao kakao;
+    private String scrumId;
 
     @Data
     public static class Bot{
