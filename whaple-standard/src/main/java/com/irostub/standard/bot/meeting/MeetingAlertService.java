@@ -30,7 +30,7 @@ public class MeetingAlertService {
             LocalDate.of(2023, 12, 25)
     );
 
-    @Scheduled(cron = "0 55 10 * 1-5", zone="Asia/Seoul")
+    @Scheduled(cron = "0 55 10 * * 1-5", zone="Asia/Seoul")
     public void meetingAlert(){
         LocalDate now = LocalDate.now(ZoneId.of("Asia/Seoul"));
         if (holidays.contains(now)) {
