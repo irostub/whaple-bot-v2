@@ -33,18 +33,18 @@ public class CommandHolderConfig {
     @Bean
     public CommandHolder commandHolder(){
         CommandHolder commandHolder = new CommandHolder();
-        commandHolder.register(pingCommand);
-        commandHolder.register(hangangCommand);
-        commandHolder.register(weatherCommand);
         commandHolder.register(helpCommand);
-        commandHolder.register(restaurantCommand);
-        commandHolder.register(fridayLunchCommand);
-        commandHolder.register(checkIoCommand);
-        commandHolder.register(weatherAlertCommand);
-        commandHolder.register(rpsCommand);
-        commandHolder.register(vsCommand);
         commandHolder.register(gptCommand);
         commandHolder.register(musicCommand);
+        commandHolder.register(fridayLunchCommand);
+        commandHolder.register(restaurantCommand);
+        commandHolder.register(weatherCommand);
+        commandHolder.register(weatherAlertCommand);
+        commandHolder.register(hangangCommand);
+        commandHolder.register(rpsCommand);
+        commandHolder.register(vsCommand);
+        commandHolder.register(checkIoCommand);
+        commandHolder.register(pingCommand);
         return commandHolder;
     }
 }

@@ -9,11 +9,12 @@ import org.telegram.telegrambots.meta.bots.AbsSender;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
 public class CommandHolder implements ICommandHolder{
-    private final Map<String, IBotCommand> commandHolderMap = new HashMap<>();
+    private final Map<String, IBotCommand> commandHolderMap = new LinkedHashMap<>();
     private BiConsumer<AbsSender, Message> defaultConsumer;
     public CommandHolder() {
     }
