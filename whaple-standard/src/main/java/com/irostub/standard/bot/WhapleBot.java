@@ -7,6 +7,7 @@ import com.irostub.standard.bot.config.AccountHoldInstance;
 import com.irostub.standard.bot.config.AccountHolder;
 import com.irostub.standard.bot.config.AppProperties;
 import com.irostub.standard.bot.fridaylunch.FridayCallbackAction;
+import com.irostub.standard.bot.reactive.MusicCallbackAction;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,12 +26,15 @@ public class WhapleBot extends TelegramLongPollingBot {
     private final ChatGroupUserService chatGroupUserService;
     private final AccountService accountService;
     private final FridayCallbackAction fridayCallbackAction;
+    private final MusicCallbackAction musicCallbackAction;
+
     @Autowired
     public WhapleBot(CommandHolder commandHolder,
                      AppProperties appProperties,
                      ChatGroupUserService chatGroupUserService,
                      AccountService accountService,
-                     FridayCallbackAction fridayCallbackAction) {
+                     FridayCallbackAction fridayCallbackAction,
+                     MusicCallbackAction musicCallbackAction) {
         super(appProperties.getBot().getToken());
         this.commandHolder = commandHolder;
         this.properties = appProperties;
@@ -38,7 +42,9 @@ public class WhapleBot extends TelegramLongPollingBot {
         this.accountService = accountService;
 //        this.callBackHolder = callBackHolder;
         this.fridayCallbackAction = fridayCallbackAction;
+        this.musicCallbackAction = musicCallbackAction;
     }
+
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -52,6 +58,7 @@ public class WhapleBot extends TelegramLongPollingBot {
                 return;
             }
         }
+
         processNonCommandUpdate(update);
     }
 
@@ -111,6 +118,10 @@ public class WhapleBot extends TelegramLongPollingBot {
 
             if (update.getCallbackQuery().getData().equals("friday")) {
                 fridayCallbackAction.callback(this, update);
+            }
+
+            if (update.getCallbackQuery().getData().startsWith("music")) {
+                musicCallbackAction.callback(this, update);
             }
         }
     }

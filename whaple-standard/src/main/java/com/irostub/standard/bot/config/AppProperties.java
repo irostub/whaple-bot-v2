@@ -17,7 +17,9 @@ public class AppProperties {
     private PublicApi publicApi;
     private Kakao kakao;
     private String scrumId;
-
+    private String chatgptToken;
+    private String youtubeToken;
+    private String youtubeAppName;
     @Data
     public static class Bot{
         private String token;

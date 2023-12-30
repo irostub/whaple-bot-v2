@@ -26,8 +26,19 @@ public class CommandHolder implements ICommandHolder{
                 String[] commandSplit = StringUtils.split(commandMessage, BotCommand.COMMAND_PARAMETER_SEPARATOR);
 
                 String command = commandSplit[0];
+                if("help".equals(command) || "도움".equals(command) || "h".equals(command)){
+                    commandHolderMap.get("도움말").processMessage(absSender,message, new String[]{});
+                    return true;
+                }
+
                 if (commandHolderMap.containsKey(commandSplit[0])) {
-                    String[] parameters = Arrays.copyOfRange(commandSplit, 1, commandSplit.length);
+
+                    String[] parameters;
+                    try {
+                        parameters = Arrays.copyOfRange(commandSplit, 1, commandSplit.length);
+                    } catch (Exception e) {
+                        parameters = new String[]{};
+                    }
                     commandHolderMap.get(command).processMessage(absSender, message, parameters);
                     return true;
                 } else if (defaultConsumer != null) {
