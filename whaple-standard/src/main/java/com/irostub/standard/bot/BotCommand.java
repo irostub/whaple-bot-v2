@@ -58,5 +58,8 @@ public abstract class BotCommand implements IBotCommand{
                 "</b>\n" + getDescription();
     }
 
-
+    @Override
+    public boolean isPublicCommand() {
+        return true;
+    }
 }

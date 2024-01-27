@@ -11,6 +11,7 @@ import com.irostub.standard.bot.weather_alert.WeatherAlertCommand;
 import com.irostub.standard.bot.ping.PingCommand;
 import com.irostub.standard.bot.restaurant.RestaurantCommand;
 import com.irostub.standard.bot.weather.WeatherCommand;
+import com.irostub.standard.bot.weekmanager.WeekManagerCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +31,7 @@ public class CommandHolderConfig {
     private final VsCommand vsCommand;
     private final GptCommand gptCommand;
     private final MusicCommand musicCommand;
+    private final WeekManagerCommand weekManagerCommand;
     @Bean
     public CommandHolder commandHolder(){
         CommandHolder commandHolder = new CommandHolder();
@@ -45,6 +47,7 @@ public class CommandHolderConfig {
         commandHolder.register(vsCommand);
         commandHolder.register(checkIoCommand);
         commandHolder.register(pingCommand);
+        commandHolder.register(weekManagerCommand);
         return commandHolder;
     }
 }

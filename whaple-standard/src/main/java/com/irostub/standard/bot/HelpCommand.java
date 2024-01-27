@@ -22,7 +22,9 @@ public class HelpCommand extends ManCommand {
     public static String getHelpText(IBotCommand...botCommands) {
         StringBuilder reply = new StringBuilder();
         for (IBotCommand com : botCommands) {
-            reply.append(com.toString()).append(System.lineSeparator()).append(System.lineSeparator());
+            if(com.isPublicCommand()){
+                reply.append(com.toString()).append(System.lineSeparator()).append(System.lineSeparator());
+            }
         }
         return reply.toString();
     }
