@@ -3,6 +3,7 @@ package com.irostub.standard.bot.checkio;
 import com.irostub.domain.entity.standard.Account;
 import com.irostub.standard.bot.utils.HolidayUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -14,6 +15,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 @Component
 public class CheckIoScheduler {
@@ -36,7 +38,7 @@ public class CheckIoScheduler {
             try {
                 absSender.execute(send);
             } catch (TelegramApiException e) {
-                throw new RuntimeException(e);
+                log.error("checkio message send fail, e=", e);
             }
         }
     }

@@ -9,6 +9,7 @@ import com.irostub.standard.bot.thirdparty.weather.publicapi.weather.PublicApiWe
 import com.irostub.standard.bot.thirdparty.weather.publicapi.weather.VilageFcstResponse;
 import com.irostub.standard.bot.thirdparty.weather.publicapi.weather.XYLatLng;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -20,6 +21,7 @@ import java.time.ZoneId;
 import java.util.List;
 
 @RequiredArgsConstructor
+@Slf4j
 @Component
 public class WeatherAlertScheduler {
     private final ConvertGpsAndGrid convertGpsAndGrid;
@@ -51,7 +53,7 @@ public class WeatherAlertScheduler {
             try {
                 absSender.execute(sendMessage);
             } catch (TelegramApiException e) {
-                throw new RuntimeException(e);
+                log.error("weather alert message send fail, e=", e);
             }
         }
     }

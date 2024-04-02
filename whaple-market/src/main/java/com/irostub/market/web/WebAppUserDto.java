@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class WebAppUserDto {
     private Long id;
-    private Boolean isBot;
     private String firstName;
     private String lastName;
     private String username;
@@ -16,7 +15,6 @@ public class WebAppUserDto {
 
     public WebAppUserDto(WebAppUser webAppUser) {
         this.id = webAppUser.getId();
-        this.isBot = webAppUser.getIsBot();
         this.firstName = webAppUser.getFirstName();
         this.lastName = webAppUser.getLastName();
         this.username = webAppUser.getUsername();

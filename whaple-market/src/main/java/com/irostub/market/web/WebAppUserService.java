@@ -27,7 +27,6 @@ public class WebAppUserService {
     private static WebAppUser newWebAppUser(WebAppUserDto webAppUserDto) {
         return new WebAppUser(
                 webAppUserDto.getId(),
-                webAppUserDto.getIsBot(),
                 webAppUserDto.getFirstName(),
                 webAppUserDto.getLastName(),
                 webAppUserDto.getUsername(),

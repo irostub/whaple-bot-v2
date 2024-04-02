@@ -9,9 +9,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @RequiredArgsConstructor
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-    private final TelegramAuthInterceptor telegramAuthInterceptor;
+//    private final TelegramAuthInterceptor telegramAuthInterceptor;
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(telegramAuthInterceptor).addPathPatterns("/api/**");
+//        registry.addInterceptor(telegramAuthInterceptor).addPathPatterns("/api/**");
     }
 }

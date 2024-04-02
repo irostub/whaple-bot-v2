@@ -68,7 +68,7 @@ public class FridayLunchScheduler {
             try {
                 absSender.execute(send);
             } catch (TelegramApiException e) {
-                throw new RuntimeException(e);
+                log.error("delete message send fail, e=", e);
             } finally {
                 queueRepository.delete(fridaySendMessageQueue);
             }
@@ -91,7 +91,7 @@ public class FridayLunchScheduler {
             try {
                 absSender.execute(send);
             } catch (TelegramApiException e) {
-                throw new RuntimeException(e);
+                log.error("deadline message send fail, e=", e);
             }
         }
 
