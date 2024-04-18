@@ -89,21 +89,21 @@ public class FridayLunchScheduler {
                             "신청자 : " + enterAccount)
                     .build();
 
-            StringBuilder sb = new StringBuilder();
-            sb.append("--- ").append(fridayLunch.getChatGroup().getChatGroupName()).append(" ---").append("\n")
-                .append("총 신청 인원 : ").append(fridayLunchAccounts.size()).append("\n")
-                .append("신청자 : ").append(enterAccount);
+//            StringBuilder sb = new StringBuilder();
+//            sb.append("--- ").append(fridayLunch.getChatGroup().getChatGroupName()).append(" ---").append("\n")
+//                .append("총 신청 인원 : ").append(fridayLunchAccounts.size()).append("\n")
+//                .append("신청자 : ").append(enterAccount);
+//
+//            SendMessage lunchChatRoomMessage = SendMessage.builder()
+//                .chatId(-403751319L)
+//                .text(sb.toString())
+//                .build();
 
-            SendMessage lunchChatRoomMessage = SendMessage.builder()
-                .chatId(-403751319L)
-                .text(sb.toString())
-                .build();
-
-            try {
-                absSender.execute(lunchChatRoomMessage);
-            } catch (TelegramApiException e) {
-                log.error("launch message send fail, e=",e);
-            }
+//            try {
+//                absSender.execute(lunchChatRoomMessage);
+//            } catch (TelegramApiException e) {
+//                log.error("launch message send fail, e=",e);
+//            }
             try {
                 absSender.execute(send);
             } catch (TelegramApiException e) {
